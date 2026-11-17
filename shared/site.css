@@ -1,0 +1,16 @@
+* { box-sizing: border-box; }
+body { margin: 0; font: 16px/1.5 Georgia, serif; color: #2b2b2b; background: #faf7f2; }
+.site-header { background: #2f4a3a; color: #fff; padding: 14px 24px; display: flex; gap: 24px; align-items: center; height: 64px; }
+.site-header b { font-size: 20px; letter-spacing: .04em; }
+.site-header a { color: #dfe9e2; margin-right: 16px; text-decoration: none; font: 14px sans-serif; }
+.wrap { max-width: 1100px; margin: 0 auto; padding: 24px; }
+.wrap.wide { max-width: none; }
+h1, h2 { font-weight: 600; }
+.filler { background: #ece5d8; border-radius: 8px; padding: 16px; margin: 16px 0; font: 15px/1.5 sans-serif; }
+.filler.tall { height: 700px; }
+.footer { background: #2f4a3a; color: #dfe9e2; padding: 32px 24px; font: 14px sans-serif; }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.cols.sidebar { grid-template-columns: 1fr 280px; }
+.col { min-width: 0; }
+.mark { outline: 2px dashed #c0392b; outline-offset: 2px; }
+@media (max-width: 700px) { .cols, .cols.sidebar { grid-template-columns: 1fr; } .wrap { padding: 12px; } .site-header a { display: none; } }

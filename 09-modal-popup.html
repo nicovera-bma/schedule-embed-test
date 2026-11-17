@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Widget inside a modal</title>
+<link rel="stylesheet" href="shared/site.css">
+<script src="shared/studios.js"></script>
+
+</head>
+<body >
+<header class="site-header" id="site-header"><b>Balanced Body Collective</b><nav><a href="./">All test pages</a><a href="#">Classes</a><a href="#">Pricing</a><a href="#">About</a><a href="#">Contact</a></nav></header>
+<main class="wrap">
+<h1>Book a class</h1>
+<p><button id="open-modal" style="font-size:18px;padding:12px 20px">Book a class</button></p>
+<div class="filler "><b>Studio news 1</b><p>Welcome to our studio. This block stands in for the rest of the site: copy, photos and links that sit around the booking widget.</p></div>
+<div class="filler "><b>Studio news 2</b><p>Welcome to our studio. This block stands in for the rest of the site: copy, photos and links that sit around the booking widget.</p></div>
+<div class="filler "><b>Studio news 3</b><p>Welcome to our studio. This block stands in for the rest of the site: copy, photos and links that sit around the booking widget.</p></div>
+</main>
+<div id="host-modal" role="dialog" aria-modal="true" style="display:none; position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 2000; overflow-y: auto;">
+  <div style="position:relative; background:#fff; width:min(720px, calc(100% - 24px)); margin: 4vh auto; border-radius:12px; padding: 16px; max-height: 92vh; overflow-y: auto;" id="modal-scroll">
+    <button id="close-modal" style="position:sticky; top:0; float:right; z-index:1">Close ✕</button>
+    <div class="mindbody-widget" data-widget-type="Schedules" data-widget-id="2954813a37c"></div>
+    <script>applyStudio(document.currentScript.previousElementSibling)</script>
+    <script async src="https://go.mindbodyonline.com/embed/widget.js"></script>
+  </div>
+</div>
+<script>
+const modal = document.getElementById('host-modal')
+document.getElementById('open-modal').onclick = () => { modal.style.display = 'block'; document.body.style.overflow = 'hidden' }
+document.getElementById('close-modal').onclick = () => { modal.style.display = 'none'; document.body.style.overflow = '' }
+if (location.search.includes('open')) document.getElementById('open-modal').click()
+</script>
+<footer class="footer" id="site-footer">© Balanced Body Collective · 12 Main St · Footer content that must stay below the widget.</footer>
+</body>
+</html>

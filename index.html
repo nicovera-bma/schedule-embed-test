@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Schedule embed test site</title>
+<script src="shared/studios.js"></script>
+<style>
+:root { --ground: #eef1ef; --ink: #121a16; --field: #1d3328; --on-field: #ffffff; --accent: #1f5fbf; --step: #dfe5e1; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--ground); color: var(--ink); font: 17px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; }
+a { color: inherit; }
+.frame { padding: 0 clamp(16px, 4vw, 56px); }
+.top { background: var(--field); color: var(--on-field); padding-top: clamp(48px, 7vw, 96px); padding-bottom: clamp(40px, 6vw, 88px); display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 48px clamp(32px, 6vw, 96px); align-items: end; }
+.jump h2 { margin: 0 0 12px; font-size: 20px; }
+.jump ol { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; }
+.jump a { display: block; padding: 10px 14px; background: rgba(255,255,255,.08); text-decoration: none; font-weight: 500; transition: background .15s, transform .15s; }
+.jump a:hover { background: var(--accent); transform: translateX(4px); }
+.top h1 { margin: 0; font-size: clamp(40px, 7.4vw, 112px); line-height: .95; letter-spacing: -.035em; font-weight: 700; max-width: 11ch; }
+.top .lede { margin: 32px 0 0; font-size: clamp(18px, 1.6vw, 22px); max-width: 46ch; }
+.facts { display: flex; flex-wrap: wrap; gap: 12px 40px; margin: 40px 0 0; padding: 0; list-style: none; font-size: 16px; }
+.facts b { display: block; font-weight: 600; }
+.facts span { opacity: .8; }
+.facts a { color: var(--on-field); }
+@media (prefers-reduced-motion: no-preference) { .js .reveal { opacity: .35; transform: translateY(24px); transition: opacity .6s ease, transform .6s cubic-bezier(.2,.7,.2,1); } .js .reveal.in { opacity: 1; transform: none; } }
+.busy { margin: 20px 0 12px; max-width: 420px; }
+.busy label { display: block; font-weight: 600; font-size: 16px; margin-bottom: 6px; }
+.busy input { width: 100%; margin: 0; accent-color: var(--field); height: 28px; cursor: pointer; }
+.busy-ends { display: flex; justify-content: space-between; font-size: 14px; opacity: .7; }
+.busy output { display: block; margin-top: 10px; font-size: 16px; line-height: 1.45; }
+.busy output b { display: block; }
+.how { display: grid; grid-template-columns: 1fr; gap: 24px clamp(32px, 6vw, 96px); padding-top: 120px; padding-bottom: 32px; }
+.how h2, .known h2 { margin: 0 0 16px; font-size: clamp(28px, 3vw, 40px); line-height: 1.05; letter-spacing: -.02em; }
+.how ol { margin: 0; padding-left: 1.2em; }
+.how li { margin-bottom: 8px; }
+.known { background: var(--step); padding: 28px 32px; align-self: start; }
+.known p { margin: 0 0 12px; }
+.known p:last-child { margin: 0; }
+.list h2.section { margin: 120px 0 40px; font-size: clamp(28px, 3vw, 40px); letter-spacing: -.02em; line-height: 1.05; }
+.list ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 72px; }
+.row { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(24px, 4vw, 64px); align-items: center; }
+.shot { display: block; background: var(--step); overflow: hidden; aspect-ratio: 16 / 10; }
+.shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; transition: transform .5s cubic-bezier(.2,.7,.2,1); }
+.row:hover .shot img { transform: scale(1.025); }
+.text h2 { margin: 0 0 12px; font-size: clamp(24px, 2.4vw, 34px); line-height: 1.08; letter-spacing: -.02em; }
+.text h2 a { text-decoration: none; }
+.text h2 a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.text p { margin: 0 0 12px; max-width: 48ch; }
+.issue { color: var(--accent); font-weight: 600; }
+.open { display: inline-block; margin-top: 8px; background: var(--ink); color: var(--ground); text-decoration: none; padding: 12px 20px; font-weight: 600; font-size: 16px; transition: background .15s; }
+.open:hover { background: var(--accent); }
+.open:focus-visible, a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.end { margin-top: 160px; background: var(--field); color: var(--on-field); padding-top: 64px; padding-bottom: 64px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; align-items: end; }
+.end b { font-size: clamp(32px, 5vw, 72px); line-height: 1; letter-spacing: -.03em; }
+.end p { margin: 0; max-width: 44ch; }
+code { font-size: .9em; }
+@media (max-width: 760px) {
+  .how, .top { grid-template-columns: 1fr; }
+  .how { padding-top: 64px; }
+  .row { grid-template-columns: 1fr; gap: 16px; }
+  .list ul { gap: 56px; }
+  .list h2.section { margin-top: 88px; }
+}
+@media (prefers-reduced-motion: reduce) { .shot img { transition: none; } }
+</style>
+</head>
+<body >
+<header class="top frame">
+  <div>
+  <h1>Schedule embed test site</h1>
+  <p class="lede">Ten fake studio pages, each embedding the Schedule widget the way a studio would, with the new Show more turned on. Set how busy the studio should be, open a page, click Show more, and watch the page around it.</p>
+  <ul class="facts">
+    <li><b>Flag</b><span>Show more is on for these five test studios only</span></li>
+  </ul>
+  </div>
+  <nav class="jump" aria-label="Scenario pages">
+    <h2>Jump to a page</h2>
+    <ol><li><a data-scenario href="01-full-width.html">Full width</a></li><li><a data-scenario href="02-half-column.html">Half of a two-column section</a></li><li><a data-scenario href="03-narrow-sidebar.html">Narrow sidebar</a></li><li><a data-scenario href="04-fixed-height-overflow-auto.html">Fixed-height box that scrolls</a></li><li><a data-scenario href="05-sticky-fixed-header.html">Fixed header and sticky sub-nav</a></li><li><a data-scenario href="06-long-page-content-around.html">Long page, content above and below</a></li><li><a data-scenario href="07-widget-at-bottom.html">Widget at the very bottom</a></li><li><a data-scenario href="08-two-widgets.html">Two widgets on one page</a></li><li><a data-scenario href="09-modal-popup.html">Widget inside a modal</a></li><li><a data-scenario href="10-builder-nested-wrappers.html">Site-builder nested wrappers</a></li></ol>
+  </nav>
+</header>
+<main>
+  <section class="how frame">
+    <div>
+      <h2>What to check on each page</h2>
+      <ol>
+        <li>Click Show more two or three times. The widget should grow, with no inner scrollbar and nothing cut off.</li>
+        <li>Watch the host page: it should not jump or scroll by itself.</li>
+        <li>Open Full Calendar, and on a phone the Filter dialog. Both should open where you can see and close them.</li>
+        <li>On a phone or tablet, turn it to landscape and repeat.</li>
+      </ol>
+    </div>
+      </section>
+  <section class="list frame">
+    <h2 class="section">The pages</h2>
+    <ul>
+<li class="row reveal">
+  <a class="shot" data-scenario href="01-full-width.html" tabindex="-1" aria-hidden="true"><img src="shots/01-full-width__desktop__1-initial.jpg" alt="" loading="lazy" width="1440" height="900"></a>
+  <div class="text">
+    <h2><a data-scenario href="01-full-width.html">Full width</a></h2>
+    <p>Widget in a full-width section. Baseline.</p>
+    
+    <div class="busy" data-busy>
+      <label for="busy-01-full-width">How busy</label>
+      <input id="busy-01-full-width" type="range" min="0" max="4" step="1" value="3">
+      <div class="busy-ends" aria-hidden="true"><span>Empty</span><span>Very busy</span></div>
+      <output for="busy-01-full-width"></output>
+    </div>
+    <a class="open" data-scenario href="01-full-width.html">Open page</a>
+  </div>
+</li>
+<li class="row reveal">
+  <a class="shot" data-scenario href="02-half-column.html" tabindex="-1" aria-hidden="true"><img src="shots/02-half-column__desktop__1-initial.jpg" alt="" loading="lazy" width="1440" height="900"></a>
+  <div class="text">
+    <h2><a data-scenario href="02-half-column.html">Half of a two-column section</a></h2>
+    <p>Widget in one half of a two-column grid (about 514px wide on desktop). Layout switches to the compact layout.</p>
+    
+    <div class="busy" data-busy>
+      <label for="busy-02-half-column">How busy</label>
+      <input id="busy-02-half-column" type="range" min="0" max="4" step="1" value="3">
+      <div class="busy-ends" aria-hidden="true"><span>Empty</span><span>Very busy</span></div>
+      <output for="busy-02-half-column"></output>
+    </div>
+    <a class="open" data-scenario href="02-half-column.html">Open page</a>
+  </div>
+</li>
+<li class="row reveal">
+  <a class="shot" data-scenario href="03-narrow-sidebar.html" tabindex="-1" aria-hidden="true"><img src="shots/03-narrow-sidebar__desktop__1-initial.jpg" alt="" loading="lazy" width="1440" height="900"></a>
+  <div class="text">
+    <h2><a data-scenario href="03-narrow-sidebar.html">Narrow sidebar</a></h2>
+    <p>Widget in a 280px sidebar next to a blog column. Stacks to one column on phones.</p>
+    
+    <div class="busy" data-busy>
+      <label for="busy-03-narrow-sidebar">How busy</label>
+      <input id="busy-03-narrow-sidebar" type="range" min="0" max="4" step="1" value="3">
+      <div class="busy-ends" aria-hidden="true"><span>Empty</span><span>Very busy</span></div>
+      <output for="busy-03-narrow-sidebar"></output>
+    </div>
+    <a class="open" data-scenario href="03-narrow-sidebar.html">Open page</a>
+  </div>
+</li>
+<li class="row reveal">
+  <a class="shot" data-scenario href="04-fixed-height-overflow-auto.html" tabindex="-1" aria-hidden="true"><img src="shots/04-fixed-height-overflow-auto__desktop__1-initial.jpg" alt="" loading="lazy" width="1440" height="900"></a>
+  <div class="text">
+    <h2><a data-scenario href="04-fixed-height-overflow-auto.html">Fixed-height box that scrolls</a></h2>
+    <p>Widget in a 640px container with overflow:auto. The iframe still grows to its full height; the visitor scrolls the container to reach it. Works, but the inner scroll is several thousand pixels long.</p>
+    
+    <div class="busy" data-busy>
+      <label for="busy-04-fixed-height-overflow-auto">How busy</label>
+      <input id="busy-04-fixed-height-overflow-auto" type="range" min="0" max="4" step="1" value="3">
+      <div class="busy-ends" aria-hidden="true"><span>Empty</span><span>Very busy</span></div>
+      <output for="busy-04-fixed-height-overflow-auto"></output>
+    </div>
+    <a class="open" data-scenario href="04-fixed-height-overflow-auto.html">Open page</a>
+  </div>
+</li>
+<li class="row reveal">
+  <a class="shot" data-scenario href="05-sticky-fixed-header.html" tabindex="-1" aria-hidden="true"><img src="shots/05-sticky-fixed-header__desktop__1-initial.jpg" alt="" loading="lazy" width="1440" height="900"></a>
+  <div class="text">
+    <h2><a data-scenario href="05-sticky-fixed-header.html">Fixed header and sticky sub-nav</a></h2>
+    <p>Fixed 72px site header plus a sticky sub-nav, widget in the middle of the page.</p>
+    
+    <div class="busy" data-busy>
+      <label for="busy-05-sticky-fixed-header">How busy</label>
+      <input id="busy-05-sticky-fixed-header" type="range" min="0" max="4" step="1" value="3">
+      <div class="busy-ends" aria-hidden="true"><span>Empty</span><span>Very busy</span></div>
+      <output for="busy-05-sticky-fixed-header"></output>
+    </div>
+    <a class="open" data-scenario href="05-sticky-fixed-header.html">Open page</a>
+  </div>
+</li>
+<li class="row reveal">
+  <a class="shot" data-scenario href="06-long-page-content-around.html" tabindex="-1" aria-hidden="true"><img src="shots/06-long-page-content-around__desktop__2-after-show-more.jpg" alt="" loading="lazy" width="1440" height="900"></a>
+  <div class="text">
+    <h2><a data-scenario href="06-long-page-content-around.html">Long page, content above and below</a></h2>
+    <p>Long page with several 700px blocks above and below the widget.</p>
+    
+    <div class="busy" data-busy>
+      <label for="busy-06-long-page-content-around">How busy</label>
+      <input id="busy-06-long-page-content-around" type="range" min="0" max="4" step="1" value="3">
+      <div class="busy-ends" aria-hidden="true"><span>Empty</span><span>Very busy</span></div>
+      <output for="busy-06-long-page-content-around"></output>
+    </div>
+    <a class="open" data-scenario href="06-long-page-content-around.html">Open page</a>
+  </div>
+</li>
+<li class="row reveal">
+  <a class="shot" data-scenario href="07-widget-at-bottom.html" tabindex="-1" aria-hidden="true"><img src="shots/07-widget-at-bottom__desktop__1-initial.jpg" alt="" loading="lazy" width="1440" height="900"></a>
+  <div class="text">
+    <h2><a data-scenario href="07-widget-at-bottom.html">Widget at the very bottom</a></h2>
+    <p>Widget is the last element on the page, nothing below it.</p>
+    
+    <div class="busy" data-busy>
+      <label for="busy-07-widget-at-bottom">How busy</label>
+      <input id="busy-07-widget-at-bottom" type="range" min="0" max="4" step="1" value="3">
+      <div class="busy-ends" aria-hidden="true"><span>Empty</span><span>Very busy</span></div>
+      <output for="busy-07-widget-at-bottom"></output>
+    </div>
+    <a class="open" data-scenario href="07-widget-at-bottom.html">Open page</a>
+  </div>
+</li>
+<li class="row reveal">
+  <a class="shot" data-scenario href="08-two-widgets.html" tabindex="-1" aria-hidden="true"><img src="shots/08-two-widgets__desktop__1-initial.jpg" alt="" loading="lazy" width="1440" height="900"></a>
+  <div class="text">
+    <h2><a data-scenario href="08-two-widgets.html">Two widgets on one page</a></h2>
+    <p>Two widgets in a two-column grid, each with its own bootstrapper script. Show more is clicked in the first; the second is checked not to collapse.</p>
+    
+    <div class="busy" data-busy>
+      <label for="busy-08-two-widgets">How busy</label>
+      <input id="busy-08-two-widgets" type="range" min="0" max="4" step="1" value="3">
+      <div class="busy-ends" aria-hidden="true"><span>Empty</span><span>Very busy</span></div>
+      <output for="busy-08-two-widgets"></output>
+    </div>
+    <a class="open" data-scenario href="08-two-widgets.html">Open page</a>
+  </div>
+</li>
+<li class="row reveal">
+  <a class="shot" data-scenario href="09-modal-popup.html" tabindex="-1" aria-hidden="true"><img src="shots/09-modal-popup__desktop__1-initial.jpg" alt="" loading="lazy" width="1440" height="900"></a>
+  <div class="text">
+    <h2><a data-scenario href="09-modal-popup.html">Widget inside a modal</a></h2>
+    <p>Widget inside a host-built modal that scrolls itself and locks body scroll. The snippet is injected while the modal is still hidden, then the modal is opened.</p>
+    
+    <div class="busy" data-busy>
+      <label for="busy-09-modal-popup">How busy</label>
+      <input id="busy-09-modal-popup" type="range" min="0" max="4" step="1" value="3">
+      <div class="busy-ends" aria-hidden="true"><span>Empty</span><span>Very busy</span></div>
+      <output for="busy-09-modal-popup"></output>
+    </div>
+    <a class="open" data-scenario href="09-modal-popup.html">Open page</a>
+  </div>
+</li>
+<li class="row reveal">
+  <a class="shot" data-scenario href="10-builder-nested-wrappers.html" tabindex="-1" aria-hidden="true"><img src="shots/10-builder-nested-wrappers__desktop__1-initial.jpg" alt="" loading="lazy" width="1440" height="900"></a>
+  <div class="text">
+    <h2><a data-scenario href="10-builder-nested-wrappers.html">Site-builder nested wrappers</a></h2>
+    <p>Eight levels of builder-style wrappers: overflow:hidden, contain:paint, translateZ transform, flex, overflow:clip.</p>
+    
+    <div class="busy" data-busy>
+      <label for="busy-10-builder-nested-wrappers">How busy</label>
+      <input id="busy-10-builder-nested-wrappers" type="range" min="0" max="4" step="1" value="3">
+      <div class="busy-ends" aria-hidden="true"><span>Empty</span><span>Very busy</span></div>
+      <output for="busy-10-builder-nested-wrappers"></output>
+    </div>
+    <a class="open" data-scenario href="10-builder-nested-wrappers.html">Open page</a>
+  </div>
+</li>
+    </ul>
+  </section>
+</main>
+<footer class="end frame">
+  <b>Schedule embed tests</b>
+  <p>Test sites only, so view only: don't book or buy. The preview pictures are the desktop first screen of each page with Balanced Body Collective.</p>
+</footer>
+<script src="shared/index.js"></script>
+</body>
+</html>
